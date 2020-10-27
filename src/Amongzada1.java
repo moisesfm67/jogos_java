@@ -6,20 +6,38 @@ import java.util.Scanner;
 
 public class Amongzada1 {
 
-	public static String jogador1 = "♠";
-	public static String jogador2 = "♥";
-	public static String jogador3 = "♦";
+	public static String jogadorPrincipal = "♠";
+	public static String jogadorSecundario = "♥";
+	public static String jogadorTerciario = "♦";
 	public static String impostor = "♠";
 	public static String[][] mapa = new String[20][20];
 
 	public static String comando;
+	public static int confirmarTaskPrincipal1=0, confirmarTaskPrincipal2=0, confirmarTaskPrincipal3=0, confirmarTaskPrincipal4=0, confirmarTaskPrincipal5=0, confirmarTaskPrincipal6=0,
+			confirmarTaskPrincipal7=0, confirmarTaskPrincipal8=0;
+	public static int confirmarTaskTerciario1=0, confirmarTaskTerciario2=0, confirmarTaskTerciario3=0,
+			confirmarTaskTerciario4=0, confirmarTaskTerciario5=0, confirmarTaskTerciario6=0, confirmarTaskTerciario7=0,
+			confirmarTaskTerciario8=0;
+	public static int confirmarTaskSecundario1=0, confirmarTaskSecundario2=0, confirmarTaskSecundario3=0,
+			confirmarTaskSecundario4=0, confirmarTaskSecundario5=0, confirmarTaskSecundario6=0, confirmarTaskSecundario7=0,
+			confirmarTaskSecundario8=0;
+	public static int contImpostorPrincipal2=0;
+	public static int contImpostorPrincipal3=0;
+	public static int contImpostorSecundario1=0;
+	public static int contImpostorSecundario3=0;
+	public static int contImpostorTerciario1=0;
+	public static int contImpostorTerciario2=0;
+	
 	public static int posicaoAtualI;
 	public static int posicaoAtualI2;
 	public static int posicaoAtualI3;
 	public static int posicaoAtualJ;
 	public static int posicaoAtualJ2;
 	public static int posicaoAtualJ3;
-	public static int contTask = 0;
+	public static boolean ejetado = false;
+	public static int contTaskJogador1 = 0;
+	public static int contTaskJogador2 = 0;
+	public static int contTaskJogador3 = 0;
 
 	public static void MapaPrincipal() {
 		int l, c;
@@ -285,25 +303,25 @@ public class Amongzada1 {
 			String player = "⚃";
 
 			if (jogadorSorteado == 0) {
-				player = jogador1;
+				player = jogadorPrincipal;
 			} else if (jogadorSorteado == 1) {
-				player = jogador2;
+				player = jogadorSecundario;
 			} else if (jogadorSorteado == 2) {
-				player = jogador3;
+				player = jogadorTerciario;
 			}
 			if (mapa[i][j].equalsIgnoreCase("⚃")) {
-				if (player == jogador1) {
+				if (player == jogadorPrincipal) {
 					posicaoAtualI = i;
 					posicaoAtualJ = j;
-					mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
-				} else if (player == jogador2) {
+					mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
+				} else if (player == jogadorSecundario) {
 					posicaoAtualI2 = i;
 					posicaoAtualJ2 = j;
-					mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
-				} else if (player == jogador3) {
+					mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
+				} else if (player == jogadorTerciario) {
 					posicaoAtualI3 = i;
 					posicaoAtualJ3 = j;
-					mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
 				}
 				jogadoresSetados.add(jogadorSorteado);
 				System.out.println();
@@ -320,11 +338,11 @@ public class Amongzada1 {
 		Random r = new Random();
 		int jogadorSorteado = r.nextInt(3);
 		if (jogadorSorteado == 0) {
-			impostor = jogador1;
+			impostor = jogadorPrincipal;
 		} else if (jogadorSorteado == 1) {
-			impostor = jogador2;
+			impostor = jogadorSecundario;
 		} else if (jogadorSorteado == 2) {
-			impostor = jogador3;
+			impostor = jogadorTerciario;
 		}
 		System.out.println("impostor: " + impostor);
 	}
@@ -356,7 +374,7 @@ public class Amongzada1 {
 					|| mapa[posicaoAtualI][posicaoAtualJ - 1].equalsIgnoreCase(mapa[posicaoAtualI2][posicaoAtualJ2])
 					|| mapa[posicaoAtualI][posicaoAtualJ + 1].equalsIgnoreCase(mapa[posicaoAtualI2][posicaoAtualJ2])) {
 
-				mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
+				mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
 			}
 		}
 		if (comando.equalsIgnoreCase("OESTE") || comando.equalsIgnoreCase("LESTE") || comando.equalsIgnoreCase("SUL")
@@ -385,7 +403,7 @@ public class Amongzada1 {
 					|| mapa[posicaoAtualI][posicaoAtualJ - 1].equalsIgnoreCase(mapa[posicaoAtualI3][posicaoAtualJ3])
 					|| mapa[posicaoAtualI][posicaoAtualJ + 1].equalsIgnoreCase(mapa[posicaoAtualI3][posicaoAtualJ3])) {
 
-				mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
+				mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
 			}
 
 		}
@@ -395,20 +413,38 @@ public class Amongzada1 {
 		String decisao;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Digite Sim para andar com o Jogador");
+		System.out.println("Digite Sim para andar com o Jogador Principal ou não para encerrar o jogo");
 		decisao = sc.nextLine().toLowerCase();
+		if(decisao.equalsIgnoreCase("não") || decisao.equalsIgnoreCase("nao")) {
+			System.out.println("Você encerrou o jogo antes dele começar!!!");
+			
+		}else if(!decisao.equalsIgnoreCase("sim") && (!decisao.equalsIgnoreCase("nao") || !decisao.equalsIgnoreCase("não"))){
+			System.out.println("Você digitou uma palavra inválida, digite uma palavra valida");
+			andarJogador();
+		}else if(decisao.equalsIgnoreCase("sim")) {
 
 		while (decisao.equalsIgnoreCase("sim")) {
 			String comando = "";
-			if (contTask == 3) {
+			if (ejetado == true) {
+				break;
+			}
+			if (contTaskJogador1 == 3) {
 				System.out.println("Você ganhou por completar 3 tasks");
 				break;
 			}
-			if (jogador2 == "☠" && jogador3 == "☠") {
+			if (contTaskJogador2 == 3) {
+				System.out.println("Jogador2 ganhou por completar 3 tasks");
+				break;
+			}
+			if (contTaskJogador3 == 3) {
+				System.out.println("Jogador3 ganhou por completar 3 tasks");
+				break;
+			}
+			if (jogadorSecundario == "☠" && jogadorTerciario == "☠") {
 				System.out.println("Você ganhou por matar todos os jogadores");
 				break;
 			}
-			if (jogador1 == "☠") {
+			if (jogadorPrincipal == "☠") {
 				System.out.println("Você foi morto por: " + impostor);
 				System.out.println("Vitória do impostor!!!");
 				break;
@@ -423,27 +459,34 @@ public class Amongzada1 {
 				System.out.println("Digite uma posição valida");
 				continue;
 			}
-			if (impostor == jogador1) {
-				if (mapa[posicaoAtualI - 1][posicaoAtualJ] == mapa[posicaoAtualI3][posicaoAtualJ3]
-						|| mapa[posicaoAtualI + 1][posicaoAtualJ] == mapa[posicaoAtualI3][posicaoAtualJ3]
-						|| mapa[posicaoAtualI][posicaoAtualJ - 1] == mapa[posicaoAtualI3][posicaoAtualJ3]
-						|| mapa[posicaoAtualI][posicaoAtualJ + 1] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
-					jogador3 = "☠";
-					mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
-					System.out.println("Voce matou o jogador: Jogador3");
-					System.out.println();
-				}
-
+			if (impostor == jogadorPrincipal) {
 				if (mapa[posicaoAtualI - 1][posicaoAtualJ] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI + 1][posicaoAtualJ] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI][posicaoAtualJ - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI][posicaoAtualJ + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
-					jogador2 = "☠";
-					mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
-					System.out.println("Voce matou o jogador: jogador2");
+					jogadorSecundario = "☠";
+					mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
+					if(contImpostorPrincipal2<1) {
+					System.out.println("Voce matou o jogador secundario ♥ ");
 					System.out.println();
+					contImpostorPrincipal2++;
+					}
+				}
+			
+				if (mapa[posicaoAtualI - 1][posicaoAtualJ] == mapa[posicaoAtualI3][posicaoAtualJ3]
+						|| mapa[posicaoAtualI + 1][posicaoAtualJ] == mapa[posicaoAtualI3][posicaoAtualJ3]
+						|| mapa[posicaoAtualI][posicaoAtualJ - 1] == mapa[posicaoAtualI3][posicaoAtualJ3]
+						|| mapa[posicaoAtualI][posicaoAtualJ + 1] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
+					jogadorTerciario = "☠";
+					mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
+					if(contImpostorPrincipal3<1) {
+					System.out.println("Voce matou o jogador terciario ♦ ");
+					System.out.println();
+					contImpostorPrincipal3++;
+					}
 				}
 			}
+				
 
 			if (comando.equalsIgnoreCase("NORTE")) {
 
@@ -452,7 +495,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI - 1][posicaoAtualJ] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI - 1][posicaoAtualJ] != "☉") {
 
-					mapa[posicaoAtualI - 1][posicaoAtualJ] = jogador1;
+					mapa[posicaoAtualI - 1][posicaoAtualJ] = jogadorPrincipal;
 					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
 					}
@@ -469,9 +512,17 @@ public class Amongzada1 {
 					System.out.println("Existe uma parede nesse direção");
 					continue;
 				}
-				if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☉") {
-					FazerTask();
-					continue;
+				if (jogadorPrincipal != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☉") {
+						confirmarTaskJogadorPrincipal();
+						continue;
+					}
+
+				} else if (jogadorPrincipal == impostor) {
+					if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☉") {
+						continue;
+					}
 				}
 
 			}
@@ -483,7 +534,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI + 1][posicaoAtualJ] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI + 1][posicaoAtualJ] != "☉") {
 
-					mapa[posicaoAtualI + 1][posicaoAtualJ] = jogador1;
+					mapa[posicaoAtualI + 1][posicaoAtualJ] = jogadorPrincipal;
 					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
 					}
@@ -499,9 +550,17 @@ public class Amongzada1 {
 					System.out.println("Existe uma parede nesse direção");
 					continue;
 				}
-				if (mapa[posicaoAtualI + 1][posicaoAtualJ] == "☉") {
-					FazerTask();
-					continue;
+				if (jogadorPrincipal != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI + 1][posicaoAtualJ] == "☉") {
+						confirmarTaskJogadorPrincipal();
+						continue;
+					}
+
+				} else if (jogadorPrincipal == impostor) {
+					if (mapa[posicaoAtualI + 1][posicaoAtualJ] == "☉") {
+						continue;
+					}
 				}
 
 			}
@@ -510,7 +569,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI][posicaoAtualJ + 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
 						&& mapa[posicaoAtualI][posicaoAtualJ + 1] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI][posicaoAtualJ + 1] != "☉") {
-					mapa[posicaoAtualI][posicaoAtualJ + 1] = jogador1;
+					mapa[posicaoAtualI][posicaoAtualJ + 1] = jogadorPrincipal;
 					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
 					}
@@ -528,9 +587,17 @@ public class Amongzada1 {
 					System.out.println("Existe uma parede nesse direção");
 					continue;
 				}
-				if (mapa[posicaoAtualI][posicaoAtualJ + 1] == "☉") {
-					FazerTask();
-					continue;
+				if (jogadorPrincipal != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI][posicaoAtualJ + 1] == "☉") {
+						confirmarTaskJogadorPrincipal();
+						continue;
+					}
+
+				} else if (jogadorPrincipal == impostor) {
+					if (mapa[posicaoAtualI][posicaoAtualJ + 1] == "☉") {
+						continue;
+					}
 				}
 
 			}
@@ -541,7 +608,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI][posicaoAtualJ - 1] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI][posicaoAtualJ - 1] != "☉") {
 
-					mapa[posicaoAtualI][posicaoAtualJ - 1] = jogador1;
+					mapa[posicaoAtualI][posicaoAtualJ - 1] = jogadorPrincipal;
 					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
 					}
@@ -559,9 +626,17 @@ public class Amongzada1 {
 					continue;
 
 				}
-				if (mapa[posicaoAtualI][posicaoAtualJ - 1] == "☉") {
-					FazerTask();
-					continue;
+				if (jogadorPrincipal != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI][posicaoAtualJ - 1] == "☉") {
+						confirmarTaskJogadorPrincipal();
+						continue;
+					}
+
+				} else if (jogadorPrincipal == impostor) {
+					if (mapa[posicaoAtualI][posicaoAtualJ - 1] == "☉") {
+						continue;
+					}
 				}
 
 			}
@@ -569,33 +644,40 @@ public class Amongzada1 {
 			mostrarJogadorAleatorio(comando);
 		}
 	}
-
+	}
 	public static void andarJogadorAleatorio2() throws InterruptedException {
 		int count = 0;
-		if (jogador2 == "☠") {
+		if (jogadorSecundario == "☠") {
 			return;
 		}
 
 		while (count < 1) {
-			if (impostor == jogador2) {
+
+			if (impostor == jogadorSecundario) {
 				if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]
 						|| mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == mapa[posicaoAtualI3][posicaoAtualJ3]
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
-					jogador3 = "☠";
-					mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
-					System.out.println("Jogador 2 matou o jogador" + jogador3);
+					jogadorTerciario = "☠";
+					mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
+					if(contImpostorSecundario3<1) {
+					System.out.println("Jogador 2 matou o jogador terciario ♦ " );
 					System.out.println();
+					contImpostorSecundario3++;
+					}
 				}
 
 				if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == mapa[posicaoAtualI][posicaoAtualJ]) {
-					jogador1 = "☠";
-					mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
-					System.out.println("Jogador 2 matou o jogador" + jogador1);
+					jogadorPrincipal = "☠";
+					mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
+					if(contImpostorSecundario1<1) {
+					System.out.println("Jogador 2 matou o jogador principal ♠ " );
 					System.out.println();
+					contImpostorSecundario1++;
+				}
 				}
 				if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 + 2 <= 19 && posicaoAtualJ2 - 2 >= 0
 						&& posicaoAtualJ2 + 2 <= 19) {
@@ -603,20 +685,25 @@ public class Amongzada1 {
 							|| mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]
 							|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == mapa[posicaoAtualI3][posicaoAtualJ3]
 							|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
-						jogador3 = "☠";
-						mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
-						System.out.println("Jogador 2 matou o jogador" + jogador3);
+						jogadorTerciario = "☠";
+						mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
+						if(contImpostorSecundario3<1) {
+						System.out.println("Jogador 2 matou o jogador terciario ♦ ");
 						System.out.println();
+						contImpostorSecundario3++;
 					}
-
+					}
 					if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == mapa[posicaoAtualI][posicaoAtualJ]) {
-						jogador1 = "☠";
-						mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
-						System.out.println("Jogador 2 matou o jogador" + jogador1);
+						jogadorPrincipal = "☠";
+						mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
+						if(contImpostorSecundario1<1) {
+						System.out.println("Jogador 2 matou o jogador principal ♠ ");
 						System.out.println();
+						contImpostorSecundario1++;
+					}
 					}
 				}
 			}
@@ -630,7 +717,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI2 - 1][posicaoAtualJ2] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI2 - 1][posicaoAtualJ2] != "☉") {
 
-					mapa[posicaoAtualI2 - 1][posicaoAtualJ2] = jogador2;
+					mapa[posicaoAtualI2 - 1][posicaoAtualJ2] = jogadorSecundario;
 					mapa[posicaoAtualI2][posicaoAtualJ2] = "⚃";
 					posicaoAtualI2 -= 1;
 					count += 1;
@@ -643,11 +730,27 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorSecundario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☉") {
+						confirmarTaskJogadorSecundario();
+						count += 1;
+					}
+					if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 - 2 <= 19) {
+						if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == "☉") {
+							confirmarTaskJogadorSecundario();
+							count += 1;
+						}
+					}
+				} else if (jogadorSecundario == impostor) {
+					if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 			if (comando.equalsIgnoreCase("SUL")) {
 
@@ -656,7 +759,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI2 + 1][posicaoAtualJ2] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI2 + 1][posicaoAtualJ2] != "☉") {
 
-					mapa[posicaoAtualI2 + 1][posicaoAtualJ2] = jogador2;
+					mapa[posicaoAtualI2 + 1][posicaoAtualJ2] = jogadorSecundario;
 					mapa[posicaoAtualI2][posicaoAtualJ2] = "⚃";
 					posicaoAtualI2 += 1;
 					count += 1;
@@ -670,11 +773,27 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorSecundario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☉") {
+						JogadorSecundarioFazerTask();
+						count += 1;
+					}
+					if (posicaoAtualI2 + 2 >= 0 && posicaoAtualI2 + 2 <= 19) {
+						if (mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == "☉") {
+							JogadorSecundarioFazerTask();
+							count += 1;
+						}
+					}
+				} else if (jogadorSecundario == impostor) {
+					if (mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 			if (comando.equalsIgnoreCase("LESTE")) {
 
@@ -683,7 +802,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI2][posicaoAtualJ2 + 1] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI2][posicaoAtualJ2 + 1] != "☉") {
 
-					mapa[posicaoAtualI2][posicaoAtualJ2 + 1] = jogador2;
+					mapa[posicaoAtualI2][posicaoAtualJ2 + 1] = jogadorSecundario;
 					mapa[posicaoAtualI2][posicaoAtualJ2] = "⚃";
 					posicaoAtualJ2 += 1;
 					count += 1;
@@ -697,11 +816,27 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorSecundario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☉") {
+						confirmarTaskJogadorSecundario();
+						count += 1;
+					}
+					if (posicaoAtualJ2 + 2 >= 0 && posicaoAtualJ2 + 2 <= 19) {
+						if (mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == "☉") {
+							confirmarTaskJogadorSecundario();
+							count += 1;
+						}
+					}
+				} else if (jogadorSecundario == impostor) {
+					if (mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 
 			if (comando.equalsIgnoreCase("OESTE")) {
@@ -711,7 +846,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI2][posicaoAtualJ2 - 1] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI2][posicaoAtualJ2 - 1] != "☉") {
 
-					mapa[posicaoAtualI2][posicaoAtualJ2 - 1] = jogador2;
+					mapa[posicaoAtualI2][posicaoAtualJ2 - 1] = jogadorSecundario;
 					mapa[posicaoAtualI2][posicaoAtualJ2] = "⚃";
 					posicaoAtualJ2 -= 1;
 					count += 1;
@@ -724,43 +859,65 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorSecundario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☉") {
+						confirmarTaskJogadorSecundario();
+						count += 1;
+					}
+					if (posicaoAtualJ2 - 2 >= 0 && posicaoAtualJ2 - 2 <= 19) {
+						if (mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == "☉") {
+							confirmarTaskJogadorSecundario();
+							count += 1;
+						}
+					}
+				} else if (jogadorSecundario == impostor) {
+					if (mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 
-			mostrarJogadorAleatorio(comando);
 		}
 	}
 
 	public static void andarJogadorAleatorio3() throws InterruptedException {
 		int count = 0;
-		if (jogador3 == "☠") {
+		if (jogadorTerciario == "☠") {
 			return;
 		}
 
 		while (count < 1) {
-			if (impostor == jogador3) {
+
+			if (impostor == jogadorTerciario) {
 				if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
-					jogador2 = "☠";
-					mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
-					System.out.println("Jogador 3 matou o jogador" + jogador2);
+					jogadorSecundario = "☠";
+					mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
+					if(contImpostorTerciario2<0) {
+					System.out.println("Jogador 3 matou o jogador secundario ♥ ");
 					System.out.println();
+					contImpostorTerciario2++;
+				}
 				}
 
 				if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI][posicaoAtualJ]) {
-					jogador1 = "☠";
-					mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
-					System.out.println("Jogador 3 matou o jogador" + jogador1);
+					jogadorPrincipal = "☠";
+					mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
+					if(contImpostorTerciario1<0) {
+					System.out.println("Jogador 3 matou o jogador principal ♠ ");
 					System.out.println();
+					contImpostorTerciario1++;
+				}
 				}
 				if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 + 2 <= 19 && posicaoAtualJ3 - 2 >= 0
 						&& posicaoAtualJ3 + 2 <= 19) {
@@ -768,20 +925,25 @@ public class Amongzada1 {
 							|| mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
 							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == mapa[posicaoAtualI2][posicaoAtualJ2]
 							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
-						jogador2 = "☠";
-						mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
-						System.out.println("Jogador 3 matou o jogador" + jogador2);
+						jogadorSecundario = "☠";
+						mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
+						if(contImpostorTerciario2<0) {
+						System.out.println("Jogador 3 matou o jogador secundario ♥ ");
 						System.out.println();
+						contImpostorTerciario2++;
 					}
-
+					}
 					if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == mapa[posicaoAtualI][posicaoAtualJ]
 							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == mapa[posicaoAtualI][posicaoAtualJ]) {
-						jogador1 = "☠";
-						mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
-						System.out.println("Jogador 3 matou o jogador" + jogador1);
+						jogadorPrincipal = "☠";
+						mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
+						if(contImpostorTerciario1<0) {
+						System.out.println("Jogador 3 matou o jogador principal ♠ ");
 						System.out.println();
+						contImpostorTerciario1++;
+					}
 					}
 				}
 			}
@@ -795,7 +957,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
 						&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != "☉") {
 
-					mapa[posicaoAtualI3 - 1][posicaoAtualJ3] = jogador3;
+					mapa[posicaoAtualI3 - 1][posicaoAtualJ3] = jogadorTerciario;
 					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
 					posicaoAtualI3 -= 1;
 					count += 1;
@@ -807,11 +969,27 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorTerciario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☉") {
+						confirmarTaskJogadorTerciario();
+						count += 1;
+					}
+					if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 - 2 <= 19) {
+						if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == "☉") {
+							confirmarTaskJogadorTerciario();
+							count += 1;
+						}
+					}
+				} else if (jogadorTerciario == impostor) {
+					if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 
 			if (comando.equalsIgnoreCase("SUL")) {
@@ -821,7 +999,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
 						&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != "☉") {
 
-					mapa[posicaoAtualI3 + 1][posicaoAtualJ3] = jogador3;
+					mapa[posicaoAtualI3 + 1][posicaoAtualJ3] = jogadorTerciario;
 					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
 					posicaoAtualI3 += 1;
 					count += 1;
@@ -835,11 +1013,27 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorTerciario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☉") {
+						confirmarTaskJogadorTerciario();
+						count += 1;
+					}
+					if (posicaoAtualI3 + 2 >= 0 && posicaoAtualI3 + 2 <= 19) {
+						if (mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == "☉") {
+							confirmarTaskJogadorTerciario();
+							count += 1;
+						}
+					}
+				} else if (jogadorTerciario == impostor) {
+					if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
+
 			}
 
 			if (comando.equalsIgnoreCase("LESTE")) {
@@ -849,7 +1043,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
 						&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != "☉") {
 
-					mapa[posicaoAtualI3][posicaoAtualJ3 + 1] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3 + 1] = jogadorTerciario;
 					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
 					posicaoAtualJ3 += 1;
 					count += 1;
@@ -863,11 +1057,26 @@ public class Amongzada1 {
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
 					continue;
-				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☉") {
-					continue;
-				} else {
-					return;
 				}
+				if (jogadorTerciario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☉") {
+						confirmarTaskJogadorTerciario();
+						count += 1;
+					}
+					if (posicaoAtualJ3 + 2 >= 0 && posicaoAtualJ3 + 2 <= 19) {
+						if (mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == "☉") {
+							confirmarTaskJogadorTerciario();
+							count += 1;
+						}
+					}
+				} else if (jogadorTerciario == impostor) {
+					if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
 
 			}
 			if (comando.equalsIgnoreCase("OESTE")) {
@@ -877,7 +1086,7 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
 						&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != "☉") {
 
-					mapa[posicaoAtualI3][posicaoAtualJ3 - 1] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3 - 1] = jogadorTerciario;
 					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
 					posicaoAtualJ3 -= 1;
 					count += 1;
@@ -891,27 +1100,40 @@ public class Amongzada1 {
 
 					continue;
 
-				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☉") {
-
-					continue;
-				} else {
-					return;
 				}
-			}
-			mostrarJogadorAleatorio(comando);
+				if (jogadorTerciario != impostor) {
+					ReportarCorpo();
+					if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☉") {
+						confirmarTaskJogadorTerciario();
+						count += 1;
+					}
+					if (posicaoAtualJ3 - 2 >= 0 && posicaoAtualJ3 - 2 <= 19) {
+						if (mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == "☉") {
+							confirmarTaskJogadorTerciario();
+							count += 1;
+						}
+					}
+				} else if (jogadorTerciario == impostor) {
+					if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☉") {
+						count += 1;
+					}
+				}
+				mostrarJogadorAleatorio(comando);
+				return;
 
+			}
 		}
 	}
 
-	public static void FazerTask() throws InterruptedException {
+	public static void JogadorPrincipalFazerTask() throws InterruptedException {
 		int i = 0;
 		int tempo = 3000;
 		while (i < 3) {
 			Thread.sleep(tempo);
-			if (jogador2 != "☠") {
+			if (jogadorSecundario != "☠") {
 				andarJogadorAleatorio2();
 			}
-			if (jogador3 != "☠") {
+			if (jogadorTerciario != "☠") {
 				andarJogadorAleatorio3();
 			}
 			System.out.println("Fazendo task " + (tempo / 1000) + " segundos restantes");
@@ -919,22 +1141,535 @@ public class Amongzada1 {
 			tempo -= 1000;
 			i++;
 		}
-		contTask++;
+		contTaskJogador1++;
 		System.out.println();
-		System.out.println("Task completa");
+		System.out.println("Task completa jogador principal");
 		System.out.println();
 	}
 
-	public static void Impostor() {
-		if (jogador2 == "☠") {
-			System.out.println("Você matou o jogador 2");
+	public static void JogadorSecundarioFazerTask() throws InterruptedException {
+
+		contTaskJogador2++;
+		System.out.println();
+		System.out.println("Task completa jogador secundario");
+		System.out.println();
+	}
+
+	public static void JogadorTerciarioFazerTask() throws InterruptedException {
+
+		contTaskJogador3++;
+		System.out.println();
+		System.out.println("Task completa jogador terciario");
+		System.out.println();
+	}
+
+	public static boolean ReportarCorpo() {
+		if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☠" || mapa[posicaoAtualI + 1][posicaoAtualJ] == "☠"
+				|| mapa[posicaoAtualI][posicaoAtualJ + 1] == "☠" || mapa[posicaoAtualI][posicaoAtualJ - 1] == "☠") {
+			System.out.println("O jogador principal encontrou um corpo, você é o unico suspeito");
+			System.out.println(impostor + " foi ejetado");
+			System.out.println("....... " + impostor + "..........");
+			System.out.println("...... ⡠⢤⣀.......");
+			System.out.println("....⡠⠤⢎⡴⠶⠦⠙⣄.....");
+			System.out.println("...⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀... ");
+			System.out.println("...⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀....");
+			System.out.println("...⡗⢰⡿⠋⠛⢿⠏⡼⠀.....");
+			System.out.println("...⠈⠐⠒⢇⣛⠡⠊.......");
+			System.out.println(".................");
 			System.out.println();
+			ejetado = true;
 		}
-		if (jogador3 == "☠") {
-			System.out.println("Você matou o jogador 3");
+		if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☠" || mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☠"
+				|| mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☠" || mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☠") {
+			System.out.println("O jogador 2 encontrou um corpo, você é o unico suspeito");
+			System.out.println(impostor + " foi ejetado");
+			System.out.println("....... " + impostor + "..........");
+			System.out.println("...... ⡠⢤⣀.......");
+			System.out.println("....⡠⠤⢎⡴⠶⠦⠙⣄.....");
+			System.out.println("...⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀... ");
+			System.out.println("...⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀....");
+			System.out.println("...⡗⢰⡿⠋⠛⢿⠏⡼⠀.....");
+			System.out.println("...⠈⠐⠒⢇⣛⠡⠊.......");
+			System.out.println(".................");
 			System.out.println();
+			ejetado = true;
+		}
+		if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 + 2 <= 19 && posicaoAtualJ2 - 2 >= 0
+				&& posicaoAtualJ2 + 2 <= 19) {
+			if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == "☠" || mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == "☠"
+					|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == "☠"
+					|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == "☠") {
+				System.out.println("O jogador 2 encontrou um corpo, você é o unico suspeito");
+				System.out.println(impostor + " foi ejetado");
+				System.out.println("....... " + impostor + "..........");
+				System.out.println("...... ⡠⢤⣀.......");
+				System.out.println("....⡠⠤⢎⡴⠶⠦⠙⣄.....");
+				System.out.println("...⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀... ");
+				System.out.println("...⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀....");
+				System.out.println("...⡗⢰⡿⠋⠛⢿⠏⡼⠀.....");
+				System.out.println("...⠈⠐⠒⢇⣛⠡⠊.......");
+				System.out.println(".................");
+				System.out.println();
+				ejetado = true;
+			}
+		}
+		if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☠" || mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☠"
+				|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☠" || mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☠") {
+			System.out.println("O jogador 3 encontrou um corpo, você é o unico suspeito");
+			System.out.println(impostor + " foi ejetado");
+			System.out.println("....... " + impostor + "..........");
+			System.out.println("...... ⡠⢤⣀.......");
+			System.out.println("....⡠⠤⢎⡴⠶⠦⠙⣄.....");
+			System.out.println("...⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀... ");
+			System.out.println("...⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀....");
+			System.out.println("...⡗⢰⡿⠋⠛⢿⠏⡼⠀.....");
+			System.out.println("...⠈⠐⠒⢇⣛⠡⠊.......");
+			System.out.println(".................");
+			System.out.println();
+			ejetado = true;
+		}
+		if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 + 2 <= 19 && posicaoAtualJ3 - 2 >= 0
+				&& posicaoAtualJ3 + 2 <= 19) {
+			if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == "☠" || mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == "☠"
+					|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == "☠"
+					|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == "☠") {
+				System.out.println("O jogador 3 encontrou um corpo, você é o unico suspeito");
+				System.out.println(impostor + " foi ejetado");
+				System.out.println("....... " + impostor + "..........");
+				System.out.println("...... ⡠⢤⣀.......");
+				System.out.println("....⡠⠤⢎⡴⠶⠦⠙⣄.....");
+				System.out.println("...⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀... ");
+				System.out.println("...⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀....");
+				System.out.println("...⡗⢰⡿⠋⠛⢿⠏⡼⠀.....");
+				System.out.println("...⠈⠐⠒⢇⣛⠡⠊.......");
+				System.out.println(".................");
+				System.out.println();
+				ejetado = true;
+			}
+		}
+		return ejetado;
+	}
+
+	public static void testeTaskFeitaJogadorPrincipal() {
+		int cont=0;
+		while(cont<1) {
+		if (   posicaoAtualI-1 == 1 && posicaoAtualJ==1
+				|| posicaoAtualI+1 == 1 && posicaoAtualJ==1
+				|| posicaoAtualI == 1 && posicaoAtualJ+1==1
+				|| posicaoAtualI == 1 && posicaoAtualJ-1==1 ) {
+			confirmarTaskPrincipal1 += 1;
+			cont+=1;
+		}
+		else if (     posicaoAtualI-1 == 2 && posicaoAtualJ==13
+				||    posicaoAtualI+1 == 2 && posicaoAtualJ==13
+				||    posicaoAtualI == 2 && posicaoAtualJ+1==13
+				||    posicaoAtualI == 2 && posicaoAtualJ-1==13) {
+			confirmarTaskPrincipal2 += 1;
+			cont++;
+		}
+		else if(posicaoAtualI-1 == 6 && posicaoAtualJ==1
+				|| posicaoAtualI+1 == 6 && posicaoAtualJ==1
+				|| posicaoAtualI == 6 && posicaoAtualJ+1==1
+				|| posicaoAtualI == 6 && posicaoAtualJ-1==1
+				) {
+			confirmarTaskPrincipal3 += 1;
+			cont++;
+		}
+		
+		else if (     posicaoAtualI-1 == 6 && posicaoAtualJ==18
+				|| posicaoAtualI+1 == 6 && posicaoAtualJ==18
+				|| posicaoAtualI == 6 && posicaoAtualJ+1==18
+				|| posicaoAtualI == 6 && posicaoAtualJ-1==18) {
+			confirmarTaskPrincipal4 += 1;
+			cont++;
+		}
+		else if (    posicaoAtualI-1 == 9 && posicaoAtualJ==3
+				|| posicaoAtualI+1 == 9 && posicaoAtualJ==3
+				|| posicaoAtualI ==9 && posicaoAtualJ+1==3
+				|| posicaoAtualI == 9 && posicaoAtualJ-1==3) {
+			confirmarTaskPrincipal5 += 1;
+			cont++;
+		}
+		else if (   posicaoAtualI-1 == 11 && posicaoAtualJ==16
+				|| posicaoAtualI+1 == 11 && posicaoAtualJ==16
+				|| posicaoAtualI == 11 && posicaoAtualJ+1==16
+				|| posicaoAtualI == 11 && posicaoAtualJ-1==16) {
+			confirmarTaskPrincipal6 += 1;
+			cont++;
+		}
+		else if (      posicaoAtualI-1 == 15 && posicaoAtualJ==5
+				|| posicaoAtualI+1 == 15 && posicaoAtualJ==5
+				|| posicaoAtualI == 15 && posicaoAtualJ+1==5
+				|| posicaoAtualI == 15 && posicaoAtualJ-1==5 ) {
+			confirmarTaskPrincipal7 += 1;
+			cont++;
+		}
+		else if (    posicaoAtualI-1 == 17 && posicaoAtualJ==9
+				|| posicaoAtualI+1 == 17 && posicaoAtualJ==9
+				|| posicaoAtualI == 17 && posicaoAtualJ+1==9
+				|| posicaoAtualI == 17 && posicaoAtualJ-1==9) {
+			confirmarTaskPrincipal8 += 1;
+			cont++;
+		}
+		cont++;
 		}
 	}
+	public static void testeTaskFeitaJogadorSecundario() {
+		int cont=0;
+		while(cont<1) {
+		if (      posicaoAtualI2-1 == 1 && posicaoAtualJ2==1
+				|| posicaoAtualI2+1 == 1 && posicaoAtualJ2==1
+				|| posicaoAtualI2 == 1 && posicaoAtualJ2+1==1
+				|| posicaoAtualI2 == 1 && posicaoAtualJ2-1==1) {
+			confirmarTaskSecundario1 += 1;
+			cont++;
+		}
+		if (    posicaoAtualI2-1 == 2 && posicaoAtualJ2==13
+				|| posicaoAtualI2+1 == 2 && posicaoAtualJ2==13
+				|| posicaoAtualI2 == 2 && posicaoAtualJ2+1==13
+				|| posicaoAtualI2 == 2 && posicaoAtualJ2-1==13) {
+			confirmarTaskSecundario2 += 1;
+			cont++;
+		}
+		if (      posicaoAtualI2-1 == 6 && posicaoAtualJ2==1
+				|| posicaoAtualI2+1 == 6 && posicaoAtualJ2==1
+				|| posicaoAtualI2 == 6 && posicaoAtualJ2+1==1
+				|| posicaoAtualI2 == 6 && posicaoAtualJ2-1==1) {
+			confirmarTaskSecundario3 += 1;
+			cont++;
+		}
+		if (      posicaoAtualI2-1 == 6 && posicaoAtualJ2==18
+				|| posicaoAtualI2+1 == 6 && posicaoAtualJ2==18
+				|| posicaoAtualI2 == 6 && posicaoAtualJ2+1==18
+				|| posicaoAtualI2 == 6 && posicaoAtualJ2-1==18) {
+			confirmarTaskSecundario4 += 1;
+			cont++;
+		}
+		if (      posicaoAtualI2-1 == 9 && posicaoAtualJ2==3
+				|| posicaoAtualI2+1 == 9 && posicaoAtualJ2==3
+				|| posicaoAtualI2 == 9 && posicaoAtualJ2+1==3
+				|| posicaoAtualI2 == 9 && posicaoAtualJ2-1==3 ) {
+			confirmarTaskSecundario5 += 1;
+			cont++;
+		}
+		if (     posicaoAtualI2-1 == 11 && posicaoAtualJ2==16
+				|| posicaoAtualI2+1 == 11 && posicaoAtualJ2==16
+				|| posicaoAtualI2 == 11 && posicaoAtualJ2+1==16
+				|| posicaoAtualI2 == 11 && posicaoAtualJ2-1==16) {
+			confirmarTaskSecundario6 += 1;
+			cont++;
+		}
+		if (    posicaoAtualI2-1 == 15 && posicaoAtualJ2==5
+				|| posicaoAtualI2+1 == 15 && posicaoAtualJ2==5
+				|| posicaoAtualI2 == 15 && posicaoAtualJ2+1==5
+				|| posicaoAtualI2 == 15 && posicaoAtualJ2-1==5) {
+			confirmarTaskSecundario7 += 1;
+			cont++;
+		}
+		if (     posicaoAtualI2-1 == 17 && posicaoAtualJ2==9
+				|| posicaoAtualI2+1 == 17 && posicaoAtualJ2==9
+				|| posicaoAtualI2 == 17 && posicaoAtualJ2+1==9
+				|| posicaoAtualI2 == 17 && posicaoAtualJ2-1==9) {
+			confirmarTaskSecundario8 += 1;
+			cont++;
+		}
+		//posicao +2
+		if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 + 2 <= 19 && posicaoAtualJ2 - 2 >= 0
+				&& posicaoAtualJ2 + 2 <= 19) {
+			if (   posicaoAtualI2-2 == 1 && posicaoAtualJ2==1
+					|| posicaoAtualI2+2 == 1 && posicaoAtualJ2==1
+					|| posicaoAtualI2 == 1 && posicaoAtualJ2+2==1
+					|| posicaoAtualI2 == 1 && posicaoAtualJ2-2==1 ) {
+				confirmarTaskSecundario1 += 1;
+				cont++;
+			}
+			if (     posicaoAtualI2-2 == 2 && posicaoAtualJ2==13
+					|| posicaoAtualI2+2 == 2 && posicaoAtualJ2==13
+					|| posicaoAtualI2 == 2 && posicaoAtualJ2+2==13
+					|| posicaoAtualI2 == 2 && posicaoAtualJ2-2==13 ) {
+				confirmarTaskSecundario2 += 1;
+				cont++;
+			}
+			if (       posicaoAtualI2-2 == 6 && posicaoAtualJ2==1
+					|| posicaoAtualI2+2 == 6 && posicaoAtualJ2==1
+					|| posicaoAtualI2 == 6 && posicaoAtualJ2+2==1
+					|| posicaoAtualI2 == 6 && posicaoAtualJ2-2==1 ) {
+				confirmarTaskSecundario3 += 1;
+				cont++;
+			}
+			if (      posicaoAtualI2-2 == 6 && posicaoAtualJ2==18
+					|| posicaoAtualI2+2 == 6 && posicaoAtualJ2==18
+					|| posicaoAtualI2 == 6 && posicaoAtualJ2+2==18
+					|| posicaoAtualI2 == 6 && posicaoAtualJ2-2==18 ) {
+				confirmarTaskSecundario4 += 1;
+				cont++;
+			}
+			if (      posicaoAtualI2-2 == 9 && posicaoAtualJ2==3
+					|| posicaoAtualI2+2 == 9 && posicaoAtualJ2==3
+					|| posicaoAtualI2 == 9 && posicaoAtualJ2+2==3
+					|| posicaoAtualI2 == 9 && posicaoAtualJ2-2==3 ) {
+				confirmarTaskSecundario5 += 1;
+				cont++;
+			}
+			if (     posicaoAtualI2-2 == 11 && posicaoAtualJ2==16
+					|| posicaoAtualI2+2 == 11 && posicaoAtualJ2==16
+					|| posicaoAtualI2 == 11 && posicaoAtualJ2+2==16
+					|| posicaoAtualI2 == 11 && posicaoAtualJ2-2==16 ) {
+				confirmarTaskSecundario6 += 1;
+				cont++;
+			}
+			if (      posicaoAtualI2-2 == 15 && posicaoAtualJ2==5
+					|| posicaoAtualI2+2 == 15 && posicaoAtualJ2==5
+					|| posicaoAtualI2 == 15 && posicaoAtualJ2+2==5
+					|| posicaoAtualI2 == 15 && posicaoAtualJ2-2==5 ) {
+				confirmarTaskSecundario7 += 1;
+				cont++;
+			}
+			if (     posicaoAtualI2-2 == 17 && posicaoAtualJ2==9
+					|| posicaoAtualI2+2 == 17 && posicaoAtualJ2==9
+					|| posicaoAtualI2 == 17 && posicaoAtualJ2+2==9
+					|| posicaoAtualI2 == 17 && posicaoAtualJ2-2==9 ) {
+				confirmarTaskSecundario8 += 1;
+				cont++;
+			}
+		}
+		cont++;
+		}
+	}
+	public static void testeTaskFeitaJogadorTerciario() {
+		int cont=0;
+		while(cont<1) {
+		if (     posicaoAtualI3-1 == 1 && posicaoAtualJ3==1
+				|| posicaoAtualI3+1 == 1 && posicaoAtualJ3==1
+				|| posicaoAtualI3 == 1 && posicaoAtualJ3+1==1
+				|| posicaoAtualI3 == 1 && posicaoAtualJ3-1==1 ) {
+			confirmarTaskTerciario1 += 1;
+			cont++;
+		}
+		else if (     posicaoAtualI3-1 == 2 && posicaoAtualJ3==13
+		     	|| posicaoAtualI3+1 == 2 && posicaoAtualJ3==13
+				|| posicaoAtualI3 == 2 && posicaoAtualJ3+1==13
+				|| posicaoAtualI3 == 2 && posicaoAtualJ3-1==13 ) {
+			confirmarTaskTerciario2 += 1;
+			cont++;
+		}
+		else if (      posicaoAtualI3-1 == 6 && posicaoAtualJ3==1
+				|| posicaoAtualI3+1 == 6 && posicaoAtualJ3==1
+				|| posicaoAtualI3 == 6 && posicaoAtualJ3+1==1
+				|| posicaoAtualI3 == 6 && posicaoAtualJ3-1==1 ) {
+			confirmarTaskTerciario3 += 1;
+			cont++;
+		}
+		else  if (    posicaoAtualI3-1 == 6 && posicaoAtualJ3==18
+				|| posicaoAtualI3+1 == 6 && posicaoAtualJ3==18
+				|| posicaoAtualI3 == 6 && posicaoAtualJ3+1==18
+				|| posicaoAtualI3 == 6 && posicaoAtualJ3-1==18) {
+			confirmarTaskTerciario4 += 1;
+			cont++;
+		}
+		else  if (      posicaoAtualI3-1 == 9 && posicaoAtualJ3==3
+				|| posicaoAtualI3+1 == 9 && posicaoAtualJ3==3
+				|| posicaoAtualI3 == 9 && posicaoAtualJ3+1==3
+				|| posicaoAtualI3 == 9 && posicaoAtualJ3-1==3 ) {
+			confirmarTaskTerciario5 += 1;
+			cont++;
+		}
+		else  if (     posicaoAtualI3-1 == 11 && posicaoAtualJ3==16
+				|| posicaoAtualI3+1 == 11 && posicaoAtualJ3==16
+				|| posicaoAtualI3 == 11 && posicaoAtualJ3+1==16
+				|| posicaoAtualI3 == 11 && posicaoAtualJ3-1==16 ) {
+			confirmarTaskTerciario6 += 1;
+			cont++;
+		}
+		else if (      posicaoAtualI3-1 == 15 && posicaoAtualJ3==5
+				|| posicaoAtualI3+1 == 15 && posicaoAtualJ3==5
+				|| posicaoAtualI3 == 15 && posicaoAtualJ3+1==5
+				|| posicaoAtualI3 == 15 && posicaoAtualJ3-1==5 ) {
+			confirmarTaskTerciario7 += 1;
+			cont++;
+		}
+		else if (     posicaoAtualI3-1 == 17 && posicaoAtualJ3==9
+				|| posicaoAtualI3+1 == 17 && posicaoAtualJ3==9
+				|| posicaoAtualI3 == 17 && posicaoAtualJ3+1==9
+				|| posicaoAtualI3 == 17 && posicaoAtualJ3-1==9 ) {
+			confirmarTaskTerciario8 += 1;
+			cont++;
+		}
+		//posicao +2
+		if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 + 2 <= 19 && posicaoAtualJ3 - 2 >= 0
+				&& posicaoAtualJ3 + 2 <= 19) {
+			if (     posicaoAtualI3-2 == 1 && posicaoAtualJ3==1
+					|| posicaoAtualI3+2 == 1 && posicaoAtualJ3==1
+					|| posicaoAtualI3 == 1 && posicaoAtualJ3+2==1
+					|| posicaoAtualI3 == 1 && posicaoAtualJ3-2==1 ) {
+				confirmarTaskTerciario1 += 1;
+				cont++;
+			}
+			else if (       posicaoAtualI3-2 == 2 && posicaoAtualJ3==13
+					|| posicaoAtualI3+2 == 2 && posicaoAtualJ3==13
+					|| posicaoAtualI3 == 2 && posicaoAtualJ3+2==13
+					|| posicaoAtualI3 == 2 && posicaoAtualJ3-2==13 ) {
+				confirmarTaskTerciario2 += 1;
+				cont++;
+			}
+			else if (      posicaoAtualI3-2 == 6 && posicaoAtualJ3==1
+					|| posicaoAtualI3+2 == 6 && posicaoAtualJ3==1
+					|| posicaoAtualI3 == 6 && posicaoAtualJ3+2==1
+					|| posicaoAtualI3 == 6 && posicaoAtualJ3-2==1 ) {
+				confirmarTaskTerciario3 += 1;
+				cont++;
+			}
+			else if (     posicaoAtualI3-2 == 6 && posicaoAtualJ3==18
+					|| posicaoAtualI3+2 == 6 && posicaoAtualJ3==18
+					|| posicaoAtualI3 == 6 && posicaoAtualJ3+2==18
+					|| posicaoAtualI3 == 6 && posicaoAtualJ3-2==18 ) {
+				confirmarTaskTerciario4 += 1;
+				cont++;
+			}
+			else if (      posicaoAtualI3-2 == 9 && posicaoAtualJ3==3
+					|| posicaoAtualI3+2 == 9 && posicaoAtualJ3==3
+					|| posicaoAtualI3 == 9 && posicaoAtualJ3+2==3
+					|| posicaoAtualI3 == 9 && posicaoAtualJ3-2==3) {
+				confirmarTaskTerciario5 += 1;
+				cont++;
+			}
+			else if (       posicaoAtualI3-2 == 11 && posicaoAtualJ3==16
+					|| posicaoAtualI3+2 == 11 && posicaoAtualJ3==16
+					|| posicaoAtualI3 == 11 && posicaoAtualJ3+2==16
+					|| posicaoAtualI3 == 11 && posicaoAtualJ3-2==16 ) {
+				confirmarTaskTerciario6 += 1;
+				cont++;
+			}
+			else if (     posicaoAtualI3-2 == 15 && posicaoAtualJ3==5
+					|| posicaoAtualI3+2 == 15 && posicaoAtualJ3==5
+					|| posicaoAtualI3 == 15 && posicaoAtualJ3+2==5
+					|| posicaoAtualI3 == 15 && posicaoAtualJ3-2==5) {
+				confirmarTaskTerciario7 += 1;
+				cont++;
+			}
+			else if (       posicaoAtualI3-2 == 17 && posicaoAtualJ3==9
+					|| posicaoAtualI3+2 == 17 && posicaoAtualJ3==9
+					|| posicaoAtualI3 == 17 && posicaoAtualJ3+2==9
+					|| posicaoAtualI3 == 17 && posicaoAtualJ3-2==9 ) {
+				confirmarTaskTerciario8 += 1;
+				cont++;
+			}
+		}
+		cont++;
+		}
+	}
+	public static void confirmarTaskJogadorPrincipal() throws InterruptedException {
+	     testeTaskFeitaJogadorPrincipal();
+	     int cont=0;
+	     while(cont<1) {
+	if(confirmarTaskPrincipal1==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}else if(confirmarTaskPrincipal2==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal3==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal4==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal5==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal6==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal7==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskPrincipal8==1) {
+		JogadorPrincipalFazerTask();
+		cont++;
+	}else cont++;
+}
+	}
+	public static void confirmarTaskJogadorSecundario() throws InterruptedException {
+	     testeTaskFeitaJogadorSecundario();
+	     int cont=0;
+	     while(cont<1) {
+	if(confirmarTaskSecundario1==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}else if(confirmarTaskSecundario2==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario3==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario4==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario5==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario6==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario7==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}
+	else if(confirmarTaskSecundario8==1) {
+		JogadorSecundarioFazerTask();
+		cont++;
+	}else cont++;
+}
+	}
+	public static void confirmarTaskJogadorTerciario() throws InterruptedException {
+		     testeTaskFeitaJogadorTerciario();
+		     int cont=0;
+		     while(cont<1) {
+		if(confirmarTaskTerciario1==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}else if(confirmarTaskTerciario2==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario3==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario4==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario5==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario6==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario7==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}
+		else if(confirmarTaskTerciario8==1) {
+			JogadorTerciarioFazerTask();
+			cont++;
+		}else cont++;
+	}
+	}
+	
 
 	public static void main(String[] args) throws InterruptedException {
 		MapaPrincipal();
