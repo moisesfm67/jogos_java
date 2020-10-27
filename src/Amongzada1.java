@@ -411,12 +411,13 @@ public class Amongzada1 {
 			if (jogador1 == "☠") {
 				System.out.println("Você foi morto por: " + impostor);
 				System.out.println("Vitória do impostor!!!");
+				break;
 			}
 			System.out.println("Digite a direção para qual o Jogador vai andar ou não para parar o programa");
 			comando = sc.next().toUpperCase();
-            if(comando.equalsIgnoreCase("nao")) {
-            	break;
-            }
+			if (comando.equalsIgnoreCase("nao")) {
+				break;
+			}
 			if (!comando.equalsIgnoreCase("NORTE") && !comando.equalsIgnoreCase("SUL")
 					&& !comando.equalsIgnoreCase("LESTE") && !comando.equalsIgnoreCase("OESTE")) {
 				System.out.println("Digite uma posição valida");
@@ -452,8 +453,8 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI - 1][posicaoAtualJ] != "☉") {
 
 					mapa[posicaoAtualI - 1][posicaoAtualJ] = jogador1;
-					if(mapa[posicaoAtualI][posicaoAtualJ]!= "☠") {
-					mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
+					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
+						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
 					}
 					posicaoAtualI -= 1;
 					andarJogadorAleatorio2();
@@ -483,9 +484,9 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI + 1][posicaoAtualJ] != "☉") {
 
 					mapa[posicaoAtualI + 1][posicaoAtualJ] = jogador1;
-					if(mapa[posicaoAtualI][posicaoAtualJ]!= "☠") {
+					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
-						}
+					}
 					posicaoAtualI += 1;
 					andarJogadorAleatorio2();
 					andarJogadorAleatorio3();
@@ -510,9 +511,9 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI][posicaoAtualJ + 1] != mapa[posicaoAtualI3][posicaoAtualJ3]
 						&& mapa[posicaoAtualI][posicaoAtualJ + 1] != "☉") {
 					mapa[posicaoAtualI][posicaoAtualJ + 1] = jogador1;
-					if(mapa[posicaoAtualI][posicaoAtualJ]!= "☠") {
+					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
-						}
+					}
 					posicaoAtualJ += 1;
 					andarJogadorAleatorio2();
 					andarJogadorAleatorio3();
@@ -541,9 +542,9 @@ public class Amongzada1 {
 						&& mapa[posicaoAtualI][posicaoAtualJ - 1] != "☉") {
 
 					mapa[posicaoAtualI][posicaoAtualJ - 1] = jogador1;
-					if(mapa[posicaoAtualI][posicaoAtualJ]!= "☠") {
+					if (mapa[posicaoAtualI][posicaoAtualJ] != "☠") {
 						mapa[posicaoAtualI][posicaoAtualJ] = "⚃";
-						}
+					}
 					posicaoAtualJ -= 1;
 					andarJogadorAleatorio2();
 					andarJogadorAleatorio3();
@@ -596,6 +597,28 @@ public class Amongzada1 {
 					System.out.println("Jogador 2 matou o jogador" + jogador1);
 					System.out.println();
 				}
+				if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 + 2 <= 19 && posicaoAtualJ2 - 2 >= 0
+						&& posicaoAtualJ2 + 2 <= 19) {
+					if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]
+							|| mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == mapa[posicaoAtualI3][posicaoAtualJ3]
+							|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == mapa[posicaoAtualI3][posicaoAtualJ3]
+							|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == mapa[posicaoAtualI3][posicaoAtualJ3]) {
+						jogador3 = "☠";
+						mapa[posicaoAtualI3][posicaoAtualJ3] = jogador3;
+						System.out.println("Jogador 2 matou o jogador" + jogador3);
+						System.out.println();
+					}
+
+					if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == mapa[posicaoAtualI][posicaoAtualJ]) {
+						jogador1 = "☠";
+						mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
+						System.out.println("Jogador 2 matou o jogador" + jogador1);
+						System.out.println();
+					}
+				}
 			}
 			String comando;
 			comando = andarAleatorio().toUpperCase();
@@ -622,7 +645,7 @@ public class Amongzada1 {
 					continue;
 				} else if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☉") {
 					continue;
-				}else {
+				} else {
 					return;
 				}
 			}
@@ -649,7 +672,7 @@ public class Amongzada1 {
 					continue;
 				} else if (mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☉") {
 					continue;
-				}else {
+				} else {
 					return;
 				}
 			}
@@ -676,7 +699,7 @@ public class Amongzada1 {
 					continue;
 				} else if (mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☉") {
 					continue;
-				}else {
+				} else {
 					return;
 				}
 			}
@@ -703,7 +726,7 @@ public class Amongzada1 {
 					continue;
 				} else if (mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☉") {
 					continue;
-				}else {
+				} else {
 					return;
 				}
 			}
@@ -718,146 +741,167 @@ public class Amongzada1 {
 			return;
 		}
 
-			while (count < 1) {
-				if (impostor == jogador3) {
-					if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
-							|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
+		while (count < 1) {
+			if (impostor == jogador3) {
+				if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
+						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
+					jogador2 = "☠";
+					mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
+					System.out.println("Jogador 3 matou o jogador" + jogador2);
+					System.out.println();
+				}
+
+				if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI][posicaoAtualJ]) {
+					jogador1 = "☠";
+					mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
+					System.out.println("Jogador 3 matou o jogador" + jogador1);
+					System.out.println();
+				}
+				if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 + 2 <= 19 && posicaoAtualJ3 - 2 >= 0
+						&& posicaoAtualJ3 + 2 <= 19) {
+					if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
+							|| mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]
+							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == mapa[posicaoAtualI2][posicaoAtualJ2]
+							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 						jogador2 = "☠";
 						mapa[posicaoAtualI2][posicaoAtualJ2] = jogador2;
 						System.out.println("Jogador 3 matou o jogador" + jogador2);
 						System.out.println();
 					}
 
-					if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI][posicaoAtualJ]) {
+					if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == mapa[posicaoAtualI][posicaoAtualJ]
+							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == mapa[posicaoAtualI][posicaoAtualJ]) {
 						jogador1 = "☠";
 						mapa[posicaoAtualI][posicaoAtualJ] = jogador1;
 						System.out.println("Jogador 3 matou o jogador" + jogador1);
 						System.out.println();
 					}
 				}
-				String comando;
-				comando = andarAleatorio().toUpperCase();
+			}
+			String comando;
+			comando = andarAleatorio().toUpperCase();
 
-				if (comando.equalsIgnoreCase("NORTE")) {
+			if (comando.equalsIgnoreCase("NORTE")) {
 
-					if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != "◼"
-							&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != mapa[posicaoAtualI][posicaoAtualJ]
-							&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
-							&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != "☉") {
+				if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != "◼"
+						&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != mapa[posicaoAtualI][posicaoAtualJ]
+						&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
+						&& mapa[posicaoAtualI3 - 1][posicaoAtualJ3] != "☉") {
 
-						mapa[posicaoAtualI3 - 1][posicaoAtualJ3] = jogador3;
-						mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
-						posicaoAtualI3 -= 1;
-						count += 1;
+					mapa[posicaoAtualI3 - 1][posicaoAtualJ3] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
+					posicaoAtualI3 -= 1;
+					count += 1;
 
-					} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "◼") {
-						continue;
+				} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "◼") {
+					continue;
 
-					} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
+				} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
-						continue;
-					} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☉") {
-						continue;
-					}else {
-						return;
-					}
+					continue;
+				} else if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☉") {
+					continue;
+				} else {
+					return;
+				}
+			}
+
+			if (comando.equalsIgnoreCase("SUL")) {
+
+				if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != "◼"
+						&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != mapa[posicaoAtualI][posicaoAtualJ]
+						&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
+						&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != "☉") {
+
+					mapa[posicaoAtualI3 + 1][posicaoAtualJ3] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
+					posicaoAtualI3 += 1;
+					count += 1;
+
+				} else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "◼") {
+
+					continue;
 				}
 
-				if (comando.equalsIgnoreCase("SUL")) {
+				else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
-					if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != "◼"
-							&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != mapa[posicaoAtualI][posicaoAtualJ]
-							&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != mapa[posicaoAtualI2][posicaoAtualJ2]
-							&& mapa[posicaoAtualI3 + 1][posicaoAtualJ3] != "☉") {
+					continue;
+				} else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☉") {
+					continue;
+				} else {
+					return;
+				}
+			}
 
-						mapa[posicaoAtualI3 + 1][posicaoAtualJ3] = jogador3;
-						mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
-						posicaoAtualI3 += 1;
-						count += 1;
+			if (comando.equalsIgnoreCase("LESTE")) {
 
-					} else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "◼") {
+				if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != "◼"
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != mapa[posicaoAtualI][posicaoAtualJ]
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != "☉") {
 
-						continue;
-					}
+					mapa[posicaoAtualI3][posicaoAtualJ3 + 1] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
+					posicaoAtualJ3 += 1;
+					count += 1;
 
-					else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
+				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "◼") {
 
-						continue;
-					} else if (mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☉") {
-						continue;
-					}else {
-						return;
-					}
+					continue;
 				}
 
-				if (comando.equalsIgnoreCase("LESTE")) {
+				else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
 
-					if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != "◼"
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != mapa[posicaoAtualI][posicaoAtualJ]
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 + 1] != "☉") {
-
-						mapa[posicaoAtualI3][posicaoAtualJ3 + 1] = jogador3;
-						mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
-						posicaoAtualJ3 += 1;
-						count += 1;
-
-					} else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "◼") {
-
-						continue;
-					}
-
-					else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
-
-						continue;
-					} else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☉") {
-						continue;
-					}else {
-						return;
-					}
-
+					continue;
+				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☉") {
+					continue;
+				} else {
+					return;
 				}
-				if (comando.equalsIgnoreCase("OESTE")) {
-
-					if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != "◼"
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != mapa[posicaoAtualI][posicaoAtualJ]
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
-							&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != "☉") {
-
-						mapa[posicaoAtualI3][posicaoAtualJ3 - 1] = jogador3;
-						mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
-						posicaoAtualJ3 -= 1;
-						count += 1;
-
-					} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "◼") {
-
-						continue;
-
-					} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
-							|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
-
-						continue;
-
-					} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☉") {
-
-						continue;
-					}else {
-						return;
-					}
-				}
-				mostrarJogadorAleatorio(comando);
 
 			}
+			if (comando.equalsIgnoreCase("OESTE")) {
+
+				if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != "◼"
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != mapa[posicaoAtualI][posicaoAtualJ]
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != mapa[posicaoAtualI2][posicaoAtualJ2]
+						&& mapa[posicaoAtualI3][posicaoAtualJ3 - 1] != "☉") {
+
+					mapa[posicaoAtualI3][posicaoAtualJ3 - 1] = jogador3;
+					mapa[posicaoAtualI3][posicaoAtualJ3] = "⚃";
+					posicaoAtualJ3 -= 1;
+					count += 1;
+
+				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "◼") {
+
+					continue;
+
+				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI][posicaoAtualJ]
+						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == mapa[posicaoAtualI2][posicaoAtualJ2]) {
+
+					continue;
+
+				} else if (mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☉") {
+
+					continue;
+				} else {
+					return;
+				}
+			}
+			mostrarJogadorAleatorio(comando);
+
 		}
-	
+	}
 
 	public static void FazerTask() throws InterruptedException {
 		int i = 0;
@@ -896,7 +940,7 @@ public class Amongzada1 {
 		MapaPrincipal();
 		imprimeMapa();
 		setarJogadorNoMapa();
-		//setarImpostor();
+		setarImpostor();
 		imprimeMapa();
 		andarJogador();
 
