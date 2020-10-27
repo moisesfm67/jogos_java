@@ -9,7 +9,7 @@ public class Amongzada1 {
 	public static String jogadorPrincipal = "♠";
 	public static String jogadorSecundario = "♥";
 	public static String jogadorTerciario = "♦";
-	public static String impostor = "♠";
+	public static String impostor = "2";
 	public static String[][] mapa = new String[20][20];
 
 	public static String comando;
@@ -333,20 +333,14 @@ public class Amongzada1 {
 		}
 	}
 
-	public static void setarImpostor() {
-		Random r = new Random();
-		int jogadorSorteado = r.nextInt(3);
-		if (jogadorSorteado == 0) {
-			impostor = jogadorPrincipal;
-		} else if (jogadorSorteado == 1) {
-			impostor = jogadorSecundario;
-		} else if (jogadorSorteado == 2) {
-			impostor = jogadorTerciario;
-		}
-		if(jogadorPrincipal==impostor) {
-		System.out.println("impostor: " + impostor);
-		}
-	}
+	
+	  public static void setarImpostor() { Random r = new Random(); int
+	  jogadorSorteado = r.nextInt(3); if (jogadorSorteado == 0) { impostor =
+	  jogadorPrincipal; } else if (jogadorSorteado == 1) { impostor =
+	  jogadorSecundario; } else if (jogadorSorteado == 2) { impostor =
+	  jogadorTerciario; } if (jogadorPrincipal == impostor) {
+	  System.out.println("impostor: " + impostor); } }
+	 
 
 	public static void mostrarJogadorAleatorio(String comando) {
 		if (comando.equalsIgnoreCase("OESTE") || comando.equalsIgnoreCase("LESTE") || comando.equalsIgnoreCase("SUL")
@@ -461,14 +455,9 @@ public class Amongzada1 {
 				if (jogadorPrincipal == "☠") {
 					System.out.println("Você foi morto por: " + impostor);
 					System.out.println();
-					System.out.println("⣿⣿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣿⣿ \r\n" + 
-							"⣿⣿⡿⠋⣁⣤⣴⣶⣦⣤⠈⢻⣿⣿⣿ \r\n" + 
-							"⣿⣿⠄⡾⠿⠛⠛⠛⠻⠟⠄⣀⠈⠻⣿ \r\n" + 
-							"⣿⠟⠄⢀⠄⠒⠒⠒⠒⢦⡀⢹⡇⠄⣿ \r\n" + 
-							"⣿⠄⠐⠄⠄⣀⣄⠄⠄⠄⡇⠄⠁⣴⣿ \r\n" + 
-							"⣿⣀⠄⠟⠉⣿⡆⠄⠄⠠⠃⢀⣼⣿⣿ \r\n" + 
-							"⣿⣿⣦⣄⣀⡉⠁⠄⠉⣀⣴⣾⣿⣿⣿ \r\n" + 
-							"⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿");
+					System.out.println("⣿⣿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣿⣿ \r\n" + "⣿⣿⡿⠋⣁⣤⣴⣶⣦⣤⠈⢻⣿⣿⣿ \r\n" + "⣿⣿⠄⡾⠿⠛⠛⠛⠻⠟⠄⣀⠈⠻⣿ \r\n"
+							+ "⣿⠟⠄⢀⠄⠒⠒⠒⠒⢦⡀⢹⡇⠄⣿ \r\n" + "⣿⠄⠐⠄⠄⣀⣄⠄⠄⠄⡇⠄⠁⣴⣿ \r\n" + "⣿⣀⠄⠟⠉⣿⡆⠄⠄⠠⠃⢀⣼⣿⣿ \r\n"
+							+ "⣿⣿⣦⣄⣀⡉⠁⠄⠉⣀⣴⣾⣿⣿⣿ \r\n" + "⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿");
 					System.out.println();
 					System.out.println("Vitória do impostor!!!");
 					break;
@@ -797,12 +786,12 @@ public class Amongzada1 {
 				if (jogadorSecundario != impostor) {
 					ReportarCorpo();
 					if (mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☉") {
-						JogadorSecundarioFazerTask();
+						confirmarTaskJogadorSecundario();
 						count += 1;
 					}
 					if (posicaoAtualI2 + 2 >= 0 && posicaoAtualI2 + 2 <= 19) {
 						if (mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == "☉") {
-							JogadorSecundarioFazerTask();
+							confirmarTaskJogadorSecundario();
 							count += 1;
 						}
 					}
@@ -1171,7 +1160,7 @@ public class Amongzada1 {
 
 		contTaskJogador2++;
 		System.out.println();
-		System.out.println("Task completa jogador secundario");
+		System.out.println("Task completa jogador Aleatório 2");
 		System.out.println();
 	}
 
@@ -1179,7 +1168,17 @@ public class Amongzada1 {
 
 		contTaskJogador3++;
 		System.out.println();
-		System.out.println("Task completa jogador terciario");
+		System.out.println("Task completa jogador Aleatório 3");
+		System.out.println();
+	}
+
+	public static void imprimirEjetado(String jogador) {
+		System.out.println(jogador + " encontrou um corpo, " + impostor + " é o unico suspeito");
+		System.out.println(impostor + " foi ejetado");
+		System.out.println("....... " + impostor + "..........");
+		System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + "           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + "⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n"
+				+ "⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + "⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + "⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
+		System.out.println("...................");
 		System.out.println();
 	}
 
@@ -1187,17 +1186,7 @@ public class Amongzada1 {
 		if (jogadorPrincipal != impostor) {
 			if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☠" || mapa[posicaoAtualI + 1][posicaoAtualJ] == "☠"
 					|| mapa[posicaoAtualI][posicaoAtualJ + 1] == "☠" || mapa[posicaoAtualI][posicaoAtualJ - 1] == "☠") {
-				System.out.println("O jogador principal encontrou um corpo, " +impostor+" é o unico suspeito");
-				System.out.println(impostor + " foi ejetado");
-				System.out.println("....... " + impostor + "..........");
-				System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
-						"           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
-				System.out.println("...................");
-				System.out.println();
+				imprimirEjetado(jogadorPrincipal);
 				ejetado = true;
 			}
 		}
@@ -1205,17 +1194,7 @@ public class Amongzada1 {
 			if (mapa[posicaoAtualI2 - 1][posicaoAtualJ2] == "☠" || mapa[posicaoAtualI2 + 1][posicaoAtualJ2] == "☠"
 					|| mapa[posicaoAtualI2][posicaoAtualJ2 + 1] == "☠"
 					|| mapa[posicaoAtualI2][posicaoAtualJ2 - 1] == "☠") {
-				System.out.println("O jogador 2 encontrou um corpo, " +impostor+" é o unico suspeito");
-				System.out.println(impostor + " foi ejetado");
-				System.out.println("....... " + impostor + "..........");
-				System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
-						"           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
-				System.out.println("...................");
-				System.out.println();
+				imprimirEjetado(jogadorSecundario);
 				ejetado = true;
 			}
 			if (posicaoAtualI2 - 2 >= 0 && posicaoAtualI2 + 2 <= 19 && posicaoAtualJ2 - 2 >= 0
@@ -1223,17 +1202,7 @@ public class Amongzada1 {
 				if (mapa[posicaoAtualI2 - 2][posicaoAtualJ2] == "☠" || mapa[posicaoAtualI2 + 2][posicaoAtualJ2] == "☠"
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 - 2] == "☠"
 						|| mapa[posicaoAtualI2][posicaoAtualJ2 + 2] == "☠") {
-					System.out.println("O jogador 2 encontrou um corpo, " +impostor+" é o unico suspeito");
-					System.out.println(impostor + " foi ejetado");
-					System.out.println("....... " + impostor + "..........");
-					System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
-							"           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
-					System.out.println("...................");
-					System.out.println();
+					imprimirEjetado(jogadorSecundario);
 					ejetado = true;
 				}
 			}
@@ -1242,17 +1211,7 @@ public class Amongzada1 {
 			if (mapa[posicaoAtualI3 - 1][posicaoAtualJ3] == "☠" || mapa[posicaoAtualI3 + 1][posicaoAtualJ3] == "☠"
 					|| mapa[posicaoAtualI3][posicaoAtualJ3 + 1] == "☠"
 					|| mapa[posicaoAtualI3][posicaoAtualJ3 - 1] == "☠") {
-				System.out.println("O jogador 3 encontrou um corpo, " +impostor+" é o unico suspeito");
-				System.out.println(impostor + " foi ejetado");
-				System.out.println("....... " + impostor + "..........");
-				System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
-						"           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + 
-						"⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
-				System.out.println("...................");
-				System.out.println();
+				imprimirEjetado(jogadorTerciario);
 				ejetado = true;
 			}
 			if (posicaoAtualI3 - 2 >= 0 && posicaoAtualI3 + 2 <= 19 && posicaoAtualJ3 - 2 >= 0
@@ -1260,17 +1219,7 @@ public class Amongzada1 {
 				if (mapa[posicaoAtualI3 - 2][posicaoAtualJ3] == "☠" || mapa[posicaoAtualI3 + 2][posicaoAtualJ3] == "☠"
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 - 2] == "☠"
 						|| mapa[posicaoAtualI3][posicaoAtualJ3 + 2] == "☠") {
-					System.out.println("O jogador 3 encontrou um corpo, " +impostor+" é o unico suspeito");
-					System.out.println(impostor + " foi ejetado");
-					System.out.println("....... " + impostor + "..........");
-					System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
-							"           ⡠⠤⢎⡴⠶⠦⠙⣄⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡰⢠⠃⣾⡇⠘⠿⢶⢸⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡇⡞⢰⣿⣿⣶⣶⠀⠚⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⡗⢰⡿⠋⠛⢿⠏⡼⠀⠀⠀⠀⠀ \r\n" + 
-							"⠀⠀⠀⠀⠈⠐⠒⢇⣛⠡⠊⠀⠀⠀⠀⠀⠀ ");
-					System.out.println("...................");
-					System.out.println();
+					imprimirEjetado(jogadorTerciario);
 					ejetado = true;
 				}
 			}
@@ -1284,7 +1233,7 @@ public class Amongzada1 {
 			if (posicaoAtualI - 1 == 1 && posicaoAtualJ == 1 || posicaoAtualI + 1 == 1 && posicaoAtualJ == 1
 					|| posicaoAtualI == 1 && posicaoAtualJ + 1 == 1 || posicaoAtualI == 1 && posicaoAtualJ - 1 == 1) {
 				confirmarTaskPrincipal1 += 1;
-				cont ++;
+				cont++;
 			} else if (posicaoAtualI - 1 == 2 && posicaoAtualJ == 13 || posicaoAtualI + 1 == 2 && posicaoAtualJ == 13
 					|| posicaoAtualI == 2 && posicaoAtualJ + 1 == 13 || posicaoAtualI == 2 && posicaoAtualJ - 1 == 13) {
 				confirmarTaskPrincipal2 += 1;
@@ -1318,6 +1267,7 @@ public class Amongzada1 {
 				cont++;
 			}
 			cont++;
+
 		}
 	}
 
@@ -1329,44 +1279,42 @@ public class Amongzada1 {
 					|| posicaoAtualI2 == 1 && posicaoAtualJ2 - 1 == 1) {
 				confirmarTaskSecundario1 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 2 && posicaoAtualJ2 == 13 || posicaoAtualI2 + 1 == 2 && posicaoAtualJ2 == 13
+			} else if (posicaoAtualI2 - 1 == 2 && posicaoAtualJ2 == 13
+					|| posicaoAtualI2 + 1 == 2 && posicaoAtualJ2 == 13
 					|| posicaoAtualI2 == 2 && posicaoAtualJ2 + 1 == 13
 					|| posicaoAtualI2 == 2 && posicaoAtualJ2 - 1 == 13) {
 				confirmarTaskSecundario2 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 6 && posicaoAtualJ2 == 1 || posicaoAtualI2 + 1 == 6 && posicaoAtualJ2 == 1
+			} else if (posicaoAtualI2 - 1 == 6 && posicaoAtualJ2 == 1 || posicaoAtualI2 + 1 == 6 && posicaoAtualJ2 == 1
 					|| posicaoAtualI2 == 6 && posicaoAtualJ2 + 1 == 1
 					|| posicaoAtualI2 == 6 && posicaoAtualJ2 - 1 == 1) {
 				confirmarTaskSecundario3 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 6 && posicaoAtualJ2 == 18 || posicaoAtualI2 + 1 == 6 && posicaoAtualJ2 == 18
+			} else if (posicaoAtualI2 - 1 == 6 && posicaoAtualJ2 == 18
+					|| posicaoAtualI2 + 1 == 6 && posicaoAtualJ2 == 18
 					|| posicaoAtualI2 == 6 && posicaoAtualJ2 + 1 == 18
 					|| posicaoAtualI2 == 6 && posicaoAtualJ2 - 1 == 18) {
 				confirmarTaskSecundario4 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 9 && posicaoAtualJ2 == 3 || posicaoAtualI2 + 1 == 9 && posicaoAtualJ2 == 3
+			} else if (posicaoAtualI2 - 1 == 9 && posicaoAtualJ2 == 3 || posicaoAtualI2 + 1 == 9 && posicaoAtualJ2 == 3
 					|| posicaoAtualI2 == 9 && posicaoAtualJ2 + 1 == 3
 					|| posicaoAtualI2 == 9 && posicaoAtualJ2 - 1 == 3) {
 				confirmarTaskSecundario5 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 11 && posicaoAtualJ2 == 16 || posicaoAtualI2 + 1 == 11 && posicaoAtualJ2 == 16
+			} else if (posicaoAtualI2 - 1 == 11 && posicaoAtualJ2 == 16
+					|| posicaoAtualI2 + 1 == 11 && posicaoAtualJ2 == 16
 					|| posicaoAtualI2 == 11 && posicaoAtualJ2 + 1 == 16
 					|| posicaoAtualI2 == 11 && posicaoAtualJ2 - 1 == 16) {
 				confirmarTaskSecundario6 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 15 && posicaoAtualJ2 == 5 || posicaoAtualI2 + 1 == 15 && posicaoAtualJ2 == 5
+			} else if (posicaoAtualI2 - 1 == 15 && posicaoAtualJ2 == 5
+					|| posicaoAtualI2 + 1 == 15 && posicaoAtualJ2 == 5
 					|| posicaoAtualI2 == 15 && posicaoAtualJ2 + 1 == 5
 					|| posicaoAtualI2 == 15 && posicaoAtualJ2 - 1 == 5) {
 				confirmarTaskSecundario7 += 1;
 				cont++;
-			}
-			if (posicaoAtualI2 - 1 == 17 && posicaoAtualJ2 == 9 || posicaoAtualI2 + 1 == 17 && posicaoAtualJ2 == 9
+			} else if (posicaoAtualI2 - 1 == 17 && posicaoAtualJ2 == 9
+					|| posicaoAtualI2 + 1 == 17 && posicaoAtualJ2 == 9
 					|| posicaoAtualI2 == 17 && posicaoAtualJ2 + 1 == 9
 					|| posicaoAtualI2 == 17 && posicaoAtualJ2 - 1 == 9) {
 				confirmarTaskSecundario8 += 1;
@@ -1380,44 +1328,44 @@ public class Amongzada1 {
 						|| posicaoAtualI2 == 1 && posicaoAtualJ2 - 2 == 1) {
 					confirmarTaskSecundario1 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 2 && posicaoAtualJ2 == 13 || posicaoAtualI2 + 2 == 2 && posicaoAtualJ2 == 13
+				} else if (posicaoAtualI2 - 2 == 2 && posicaoAtualJ2 == 13
+						|| posicaoAtualI2 + 2 == 2 && posicaoAtualJ2 == 13
 						|| posicaoAtualI2 == 2 && posicaoAtualJ2 + 2 == 13
 						|| posicaoAtualI2 == 2 && posicaoAtualJ2 - 2 == 13) {
 					confirmarTaskSecundario2 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 6 && posicaoAtualJ2 == 1 || posicaoAtualI2 + 2 == 6 && posicaoAtualJ2 == 1
+				} else if (posicaoAtualI2 - 2 == 6 && posicaoAtualJ2 == 1
+						|| posicaoAtualI2 + 2 == 6 && posicaoAtualJ2 == 1
 						|| posicaoAtualI2 == 6 && posicaoAtualJ2 + 2 == 1
 						|| posicaoAtualI2 == 6 && posicaoAtualJ2 - 2 == 1) {
 					confirmarTaskSecundario3 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 6 && posicaoAtualJ2 == 18 || posicaoAtualI2 + 2 == 6 && posicaoAtualJ2 == 18
+				} else if (posicaoAtualI2 - 2 == 6 && posicaoAtualJ2 == 18
+						|| posicaoAtualI2 + 2 == 6 && posicaoAtualJ2 == 18
 						|| posicaoAtualI2 == 6 && posicaoAtualJ2 + 2 == 18
 						|| posicaoAtualI2 == 6 && posicaoAtualJ2 - 2 == 18) {
 					confirmarTaskSecundario4 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 9 && posicaoAtualJ2 == 3 || posicaoAtualI2 + 2 == 9 && posicaoAtualJ2 == 3
+				} else if (posicaoAtualI2 - 2 == 9 && posicaoAtualJ2 == 3
+						|| posicaoAtualI2 + 2 == 9 && posicaoAtualJ2 == 3
 						|| posicaoAtualI2 == 9 && posicaoAtualJ2 + 2 == 3
 						|| posicaoAtualI2 == 9 && posicaoAtualJ2 - 2 == 3) {
 					confirmarTaskSecundario5 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 11 && posicaoAtualJ2 == 16 || posicaoAtualI2 + 2 == 11 && posicaoAtualJ2 == 16
+				} else if (posicaoAtualI2 - 2 == 11 && posicaoAtualJ2 == 16
+						|| posicaoAtualI2 + 2 == 11 && posicaoAtualJ2 == 16
 						|| posicaoAtualI2 == 11 && posicaoAtualJ2 + 2 == 16
 						|| posicaoAtualI2 == 11 && posicaoAtualJ2 - 2 == 16) {
 					confirmarTaskSecundario6 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 15 && posicaoAtualJ2 == 5 || posicaoAtualI2 + 2 == 15 && posicaoAtualJ2 == 5
+				} else if (posicaoAtualI2 - 2 == 15 && posicaoAtualJ2 == 5
+						|| posicaoAtualI2 + 2 == 15 && posicaoAtualJ2 == 5
 						|| posicaoAtualI2 == 15 && posicaoAtualJ2 + 2 == 5
 						|| posicaoAtualI2 == 15 && posicaoAtualJ2 - 2 == 5) {
 					confirmarTaskSecundario7 += 1;
 					cont++;
-				}
-				if (posicaoAtualI2 - 2 == 17 && posicaoAtualJ2 == 9 || posicaoAtualI2 + 2 == 17 && posicaoAtualJ2 == 9
+				} else if (posicaoAtualI2 - 2 == 17 && posicaoAtualJ2 == 9
+						|| posicaoAtualI2 + 2 == 17 && posicaoAtualJ2 == 9
 						|| posicaoAtualI2 == 17 && posicaoAtualJ2 + 2 == 9
 						|| posicaoAtualI2 == 17 && posicaoAtualJ2 - 2 == 9) {
 					confirmarTaskSecundario8 += 1;
@@ -1530,6 +1478,7 @@ public class Amongzada1 {
 				}
 			}
 			cont++;
+
 		}
 	}
 
@@ -1573,7 +1522,6 @@ public class Amongzada1 {
 			} else
 				cont++;
 		}
-		System.out.println();
 	}
 
 	public static void confirmarTaskJogadorSecundario() throws InterruptedException {
