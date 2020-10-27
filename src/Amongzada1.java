@@ -47,7 +47,6 @@ public class Amongzada1 {
 				mapa[l][c] = "⚃";
 			}
 		}
-		System.out.println("\t   MAPA");
 
 		// paredes do mapa
 		mapa[1][0] = "◼";
@@ -251,6 +250,7 @@ public class Amongzada1 {
 	public static void imprimeMapa() {
 		int i;
 		int j;
+		System.out.println(">-MAPA-<");
 		for (i = 0; i < 20; i++) {
 			System.out.print("");
 		}
@@ -299,8 +299,6 @@ public class Amongzada1 {
 				continue;
 			}
 
-			System.out.println(i + "-" + j);
-			System.out.println("qual jogador foi escolhido: " + (jogadorSorteado + 1));
 			String player = "⚃";
 
 			if (jogadorSorteado == 0) {
@@ -312,16 +310,16 @@ public class Amongzada1 {
 			}
 			if (mapa[i][j].equalsIgnoreCase("⚃")) {
 				if (player == jogadorPrincipal) {
-					posicaoAtualI = 18;
-					posicaoAtualJ = 15;
+					posicaoAtualI = i;
+					posicaoAtualJ = j;
 					mapa[posicaoAtualI][posicaoAtualJ] = jogadorPrincipal;
 				} else if (player == jogadorSecundario) {
-					posicaoAtualI2 = 17;
-					posicaoAtualJ2 = 10;
+					posicaoAtualI2 = i;
+					posicaoAtualJ2 = j;
 					mapa[posicaoAtualI2][posicaoAtualJ2] = jogadorSecundario;
 				} else if (player == jogadorTerciario) {
-					posicaoAtualI3 = 16;
-					posicaoAtualJ3 = 9;
+					posicaoAtualI3 = i;
+					posicaoAtualJ3 = j;
 					mapa[posicaoAtualI3][posicaoAtualJ3] = jogadorTerciario;
 				}
 				jogadoresSetados.add(jogadorSorteado);
@@ -345,7 +343,9 @@ public class Amongzada1 {
 		} else if (jogadorSorteado == 2) {
 			impostor = jogadorTerciario;
 		}
+		if(jogadorPrincipal==impostor) {
 		System.out.println("impostor: " + impostor);
+		}
 	}
 
 	public static void mostrarJogadorAleatorio(String comando) {
@@ -460,6 +460,16 @@ public class Amongzada1 {
 				}
 				if (jogadorPrincipal == "☠") {
 					System.out.println("Você foi morto por: " + impostor);
+					System.out.println();
+					System.out.println("⣿⣿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣿⣿ \r\n" + 
+							"⣿⣿⡿⠋⣁⣤⣴⣶⣦⣤⠈⢻⣿⣿⣿ \r\n" + 
+							"⣿⣿⠄⡾⠿⠛⠛⠛⠻⠟⠄⣀⠈⠻⣿ \r\n" + 
+							"⣿⠟⠄⢀⠄⠒⠒⠒⠒⢦⡀⢹⡇⠄⣿ \r\n" + 
+							"⣿⠄⠐⠄⠄⣀⣄⠄⠄⠄⡇⠄⠁⣴⣿ \r\n" + 
+							"⣿⣀⠄⠟⠉⣿⡆⠄⠄⠠⠃⢀⣼⣿⣿ \r\n" + 
+							"⣿⣿⣦⣄⣀⡉⠁⠄⠉⣀⣴⣾⣿⣿⣿ \r\n" + 
+							"⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿");
+					System.out.println();
 					System.out.println("Vitória do impostor!!!");
 					break;
 				}
@@ -516,7 +526,6 @@ public class Amongzada1 {
 						andarJogadorAleatorio2();
 						andarJogadorAleatorio3();
 						System.out.println();
-						System.out.println("Mapa jogador 1");
 						imprimeMapa();
 						continue;
 
@@ -555,7 +564,6 @@ public class Amongzada1 {
 						andarJogadorAleatorio2();
 						andarJogadorAleatorio3();
 						System.out.println();
-						System.out.println("Mapa jogador 1");
 						imprimeMapa();
 						continue;
 					}
@@ -590,7 +598,6 @@ public class Amongzada1 {
 						andarJogadorAleatorio2();
 						andarJogadorAleatorio3();
 						System.out.println();
-						System.out.println("Mapa jogador 1");
 						imprimeMapa();
 						continue;
 
@@ -629,7 +636,6 @@ public class Amongzada1 {
 						andarJogadorAleatorio2();
 						andarJogadorAleatorio3();
 						System.out.println();
-						System.out.println("Mapa jogador 1");
 						imprimeMapa();
 						continue;
 
@@ -1181,7 +1187,7 @@ public class Amongzada1 {
 		if (jogadorPrincipal != impostor) {
 			if (mapa[posicaoAtualI - 1][posicaoAtualJ] == "☠" || mapa[posicaoAtualI + 1][posicaoAtualJ] == "☠"
 					|| mapa[posicaoAtualI][posicaoAtualJ + 1] == "☠" || mapa[posicaoAtualI][posicaoAtualJ - 1] == "☠") {
-				System.out.println("O jogador principal encontrou um corpo, você é o unico suspeito");
+				System.out.println("O jogador principal encontrou um corpo, " +impostor+" é o unico suspeito");
 				System.out.println(impostor + " foi ejetado");
 				System.out.println("....... " + impostor + "..........");
 				System.out.println("⠀⠀⠀⠀         ⠀⡠⢤⣀⠀⠀⠀⠀⠀⠀ \r\n" + 
@@ -1278,7 +1284,7 @@ public class Amongzada1 {
 			if (posicaoAtualI - 1 == 1 && posicaoAtualJ == 1 || posicaoAtualI + 1 == 1 && posicaoAtualJ == 1
 					|| posicaoAtualI == 1 && posicaoAtualJ + 1 == 1 || posicaoAtualI == 1 && posicaoAtualJ - 1 == 1) {
 				confirmarTaskPrincipal1 += 1;
-				cont += 1;
+				cont ++;
 			} else if (posicaoAtualI - 1 == 2 && posicaoAtualJ == 13 || posicaoAtualI + 1 == 2 && posicaoAtualJ == 13
 					|| posicaoAtualI == 2 && posicaoAtualJ + 1 == 13 || posicaoAtualI == 2 && posicaoAtualJ - 1 == 13) {
 				confirmarTaskPrincipal2 += 1;
@@ -1528,36 +1534,46 @@ public class Amongzada1 {
 	}
 
 	public static void confirmarTaskJogadorPrincipal() throws InterruptedException {
+		System.out.println();
 		testeTaskFeitaJogadorPrincipal();
 		int cont = 0;
 		while (cont < 1) {
 			if (confirmarTaskPrincipal1 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal1++;
 				cont++;
 			} else if (confirmarTaskPrincipal2 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal2++;
 				cont++;
 			} else if (confirmarTaskPrincipal3 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal3++;
 				cont++;
 			} else if (confirmarTaskPrincipal4 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal4++;
 				cont++;
 			} else if (confirmarTaskPrincipal5 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal5++;
 				cont++;
 			} else if (confirmarTaskPrincipal6 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal6++;
 				cont++;
 			} else if (confirmarTaskPrincipal7 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal7++;
 				cont++;
 			} else if (confirmarTaskPrincipal8 == 1) {
 				JogadorPrincipalFazerTask();
+				confirmarTaskPrincipal8++;
 				cont++;
 			} else
 				cont++;
 		}
+		System.out.println();
 	}
 
 	public static void confirmarTaskJogadorSecundario() throws InterruptedException {
@@ -1566,27 +1582,35 @@ public class Amongzada1 {
 		while (cont < 1) {
 			if (confirmarTaskSecundario1 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario1++;
 				cont++;
 			} else if (confirmarTaskSecundario2 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario2++;
 				cont++;
 			} else if (confirmarTaskSecundario3 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario3++;
 				cont++;
 			} else if (confirmarTaskSecundario4 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario4++;
 				cont++;
 			} else if (confirmarTaskSecundario5 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario5++;
 				cont++;
 			} else if (confirmarTaskSecundario6 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario6++;
 				cont++;
 			} else if (confirmarTaskSecundario7 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario7++;
 				cont++;
 			} else if (confirmarTaskSecundario8 == 1) {
 				JogadorSecundarioFazerTask();
+				confirmarTaskSecundario8++;
 				cont++;
 			} else
 				cont++;
@@ -1599,27 +1623,35 @@ public class Amongzada1 {
 		while (cont < 1) {
 			if (confirmarTaskTerciario1 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario1++;
 				cont++;
 			} else if (confirmarTaskTerciario2 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario2++;
 				cont++;
 			} else if (confirmarTaskTerciario3 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario3++;
 				cont++;
 			} else if (confirmarTaskTerciario4 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario4++;
 				cont++;
 			} else if (confirmarTaskTerciario5 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario5++;
 				cont++;
 			} else if (confirmarTaskTerciario6 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario6++;
 				cont++;
 			} else if (confirmarTaskTerciario7 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario7++;
 				cont++;
 			} else if (confirmarTaskTerciario8 == 1) {
 				JogadorTerciarioFazerTask();
+				confirmarTaskTerciario8++;
 				cont++;
 			} else
 				cont++;
@@ -1630,8 +1662,8 @@ public class Amongzada1 {
 		MapaPrincipal();
 		imprimeMapa();
 		setarJogadorNoMapa();
-		setarImpostor();
 		imprimeMapa();
+		setarImpostor();
 		andarJogador();
 
 	}
